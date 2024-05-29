@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// A linear gradient used for the shimmer effect in light mode.
+///
+/// This gradient consists of shades of gray and white, creating a subtle shimmer animation.
 const SHIMMER_GRADIENT = LinearGradient(
   colors: [
     Color(0xFFEBEBF4),
@@ -20,6 +23,9 @@ const SHIMMER_GRADIENT = LinearGradient(
   tileMode: TileMode.clamp,
 );
 
+/// A linear gradient used for the shimmer effect in dark mode.
+///
+/// This gradient consists of shades of dark gray, providing a suitable shimmer animation for dark backgrounds.
 const DARK_SHIMMER_GRADIENT = LinearGradient(
   colors: [
     Color(0xFF222222),
@@ -40,6 +46,9 @@ const DARK_SHIMMER_GRADIENT = LinearGradient(
   tileMode: TileMode.clamp,
 );
 
+/// Defines the style for a skeleton avatar widget.
+///
+/// This class allows you to customize the width, height, padding, shape, and border radius of a skeleton avatar placeholder.
 class SkeletonAvatarStyle {
   final double? width;
   final double? height;
@@ -75,6 +84,9 @@ class SkeletonAvatarStyle {
             (maxHeight > 0 && (minHeight == null || minHeight < maxHeight)));
 }
 
+/// Defines the style for a skeleton line widget.
+///
+/// This class allows you to customize the width, height, padding, length, alignment, and border radius of a skeleton line placeholder.
 class SkeletonLineStyle {
   final double? width;
   final double? height;
@@ -100,6 +112,9 @@ class SkeletonLineStyle {
             (maxLength > 0 && (minLength == null || minLength < maxLength)));
 }
 
+/// Defines the style for a skeleton paragraph widget.
+///
+/// This class lets you control the number of lines, padding, spacing between lines, and the style of each line within a skeleton paragraph placeholder.
 class SkeletonParagraphStyle {
   final int lines;
   final EdgeInsetsGeometry padding;
@@ -114,6 +129,9 @@ class SkeletonParagraphStyle {
   });
 }
 
+/// Defines the style for a skeleton list tile widget.
+///
+/// This class allows you to customize the appearance of a skeleton list tile, including whether it has a leading element, the styles for the leading, title, and subtitle elements, padding, and spacing.
 class SkeletonListTileStyle {
   final bool hasLeading;
   final SkeletonAvatarStyle? leadingStyle;

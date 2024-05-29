@@ -1,19 +1,22 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'stylings.dart';
 import 'theme.dart';
 
+/// A StatefulWidget that creates a shimmering effect, typically used for loading placeholders.
+///
+/// [shimmerGradient] and [darkShimmerGradient] customize the gradient colors in light and dark themes.
+/// [themeMode] lets you override the app's theme to choose the gradient.
+/// [duration] controls the animation speed, and [child] is the widget to apply the shimmer effect to.
 class ShimmerWidget extends StatefulWidget {
   const ShimmerWidget({
-    Key? key,
+    super.key,
     this.shimmerGradient,
     this.darkShimmerGradient,
     this.themeMode,
     this.duration,
     this.child,
-  }) : super(key: key);
+  });
 
   final LinearGradient? shimmerGradient;
   final LinearGradient? darkShimmerGradient;
@@ -25,10 +28,16 @@ class ShimmerWidget extends StatefulWidget {
   ShimmerState createState() => ShimmerState();
 }
 
+/// Manages the state of the [ShimmerWidget], including the animation controller.
+///
+/// This class handles the shimmer animation's setup, control, and disposal.
 class ShimmerState extends State<ShimmerWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _shimmerController;
 
+  /// Initializes the [ShimmerState].
+  ///
+  /// This method sets up the animation controller to create the repeating shimmer effect.
   @override
   void initState() {
     super.initState();
@@ -39,12 +48,18 @@ class ShimmerState extends State<ShimmerWidget>
           period: widget.duration ?? const Duration(milliseconds: 1000));
   }
 
+  /// Cleans up resources when the [ShimmerWidget] is disposed.
+  ///
+  /// Disposes of the animation controller to prevent memory leaks.
   @override
   void dispose() {
     _shimmerController.dispose();
     super.dispose();
   }
 
+  /// Gets the appropriate theme mode based on the current context.
+  ///
+  /// This method checks the app's brightness and the [SkeletonTheme]'s theme mode, falling back to the light theme if neither is available.
   ThemeMode get _appThemeMode => Theme.of(context).brightness == Brightness.dark
       ? ThemeMode.dark
       : ThemeMode.light;
@@ -57,6 +72,9 @@ class ShimmerState extends State<ShimmerWidget>
       ? _darkGradient
       : _lightGradient;
 
+  /// Gets the gradient to use for the shimmer effect.
+  ///
+  /// This method selects the gradient based on the theme mode, prioritizing the gradients provided in the [ShimmerWidget], the [SkeletonTheme], and finally the default gradients.
   LinearGradient get _lightGradient =>
       widget.shimmerGradient ??
       SkeletonTheme.of(context)?.shimmerGradient ??
@@ -96,8 +114,8 @@ class ShimmerState extends State<ShimmerWidget>
   Widget build(BuildContext context) {
     return widget.child != null
         ? Shimmer(
-            child: widget.child!,
             shimmer: this,
+            child: widget.child!,
           )
         : const SizedBox();
   }
@@ -118,11 +136,11 @@ class _SlidingGradientTransform extends GradientTransform {
 
 class Shimmer extends InheritedWidget {
   final ShimmerState shimmer;
-  Shimmer({
-    Key? key,
-    required Widget child,
+  const Shimmer({
+    super.key,
+    required super.child,
     required this.shimmer,
-  }) : super(key: key, child: child);
+  });
 
   static ShimmerState? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<Shimmer>()?.shimmer;

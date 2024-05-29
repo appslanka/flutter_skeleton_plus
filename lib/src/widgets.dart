@@ -5,9 +5,12 @@ import 'stylings.dart';
 
 part 'skeleton.dart';
 
+/// A wrapper widget that displays either its child widget or a [ShimmerWidget] with the child as a skeleton if a [Shimmer] ancestor is found.
+///
+/// This widget is useful for creating loading states where you want to show a placeholder (skeleton) of the child widget while it's being fetched.
 class SkeletonItem extends StatelessWidget {
   final Widget child;
-  const SkeletonItem({Key? key, required this.child});
+  const SkeletonItem({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
     if (Shimmer.of(context) == null) {
@@ -23,10 +26,12 @@ class SkeletonItem extends StatelessWidget {
   }
 }
 
+/// A skeleton widget that represents a circular or rectangular avatar placeholder.
+///
+/// The [style] property can be used to customize the appearance of the skeleton avatar, including its width, height, padding, shape, and border radius.
 class SkeletonAvatar extends StatelessWidget {
   final SkeletonAvatarStyle style;
-  const SkeletonAvatar({Key? key, this.style = const SkeletonAvatarStyle()})
-      : super(key: key);
+  const SkeletonAvatar({super.key, this.style = const SkeletonAvatarStyle()});
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +71,12 @@ class SkeletonAvatar extends StatelessWidget {
   }
 }
 
+/// A skeleton widget that represents a single line of text or a similar element.
+///
+/// The [style] property allows customization of the skeleton line's width, height, padding, length, alignment, and border radius.
 class SkeletonLine extends StatelessWidget {
   final SkeletonLineStyle style;
-  const SkeletonLine({Key? key, this.style = const SkeletonLineStyle()})
-      : super(key: key);
+  const SkeletonLine({super.key, this.style = const SkeletonLineStyle()});
 
   @override
   Widget build(BuildContext context) {
@@ -103,13 +110,16 @@ class SkeletonLine extends StatelessWidget {
   }
 }
 
+/// A skeleton widget that represents a paragraph of text or similar content.
+///
+/// The [style] property controls the number of lines, padding, spacing between lines, and the style of each individual line in the skeleton paragraph.
 class SkeletonParagraph extends StatelessWidget {
   final SkeletonParagraphStyle style;
 
-  SkeletonParagraph({
-    Key? key,
+  const SkeletonParagraph({
+    super.key,
     this.style = const SkeletonParagraphStyle(),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +144,10 @@ class SkeletonParagraph extends StatelessWidget {
   }
 }
 
+/// A skeleton widget that represents a list tile, commonly used in lists or data displays.
+///
+/// This widget can optionally include a leading avatar, a title line, a subtitle line, and trailing content.
+/// You can customize its appearance using various properties like `hasLeading`, `leadingStyle`, `titleStyle`, `hasSubtitle`, `subtitleStyle`, `padding`, `contentSpacing`, and `verticalSpacing`.
 class SkeletonListTile extends StatelessWidget {
   final bool hasLeading;
   final SkeletonAvatarStyle? leadingStyle;
@@ -147,8 +161,8 @@ class SkeletonListTile extends StatelessWidget {
 
   // final SkeletonListTileStyle style;
 
-  SkeletonListTile({
-    Key? key,
+  const SkeletonListTile({
+    super.key,
     this.hasLeading = true,
     this.leadingStyle, //  = const SkeletonAvatarStyle(padding: EdgeInsets.all(0)),
     this.titleStyle = const SkeletonLineStyle(
@@ -164,7 +178,7 @@ class SkeletonListTile extends StatelessWidget {
     this.contentSpacing = 8,
     this.verticalSpacing = 8,
     this.trailing,
-  }) : super(key: key);
+  });
   // : assert(height >= lineHeight + spacing + (padding?.vertical ?? 16) + 2);
 
   @override
@@ -210,6 +224,9 @@ class SkeletonListTile extends StatelessWidget {
   }
 }
 
+/// A skeleton widget that displays a list of items using a [ListView.builder].
+///
+/// You can provide either a single [item] widget or an [itemBuilder] function to customize the appearance of each item in the list. The [itemCount] specifies the number of items, and the [scrollable] flag determines whether the list can scroll. You can also adjust the [padding] and [spacing] of the items.
 class SkeletonListView extends StatelessWidget {
   final Widget? item;
   final Widget Function(BuildContext, int)? itemBuilder;
@@ -218,27 +235,27 @@ class SkeletonListView extends StatelessWidget {
   final EdgeInsets? padding;
   final double? spacing;
 
-  SkeletonListView({
-    Key? key,
+  const SkeletonListView({
+    super.key,
     this.item,
     this.itemBuilder,
     this.itemCount,
     this.scrollable = false,
     this.padding = const EdgeInsets.symmetric(horizontal: 16),
     this.spacing = 8,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return SkeletonItem(
       child: ListView.builder(
         padding: padding,
-        physics: scrollable ? null : NeverScrollableScrollPhysics(),
+        physics: scrollable ? null : const NeverScrollableScrollPhysics(),
         itemCount: itemCount,
         itemBuilder: itemBuilder ??
             (context, index) =>
                 item ??
-                SkeletonListTile(
+                const SkeletonListTile(
                   hasSubtitle: true,
                 ),
       ),
@@ -246,5 +263,8 @@ class SkeletonListView extends StatelessWidget {
   }
 }
 
+/// Generates a random double value within the specified range.
+///
+/// This function takes a [start] and [end] value and returns a random double value between them, inclusive.
 double doubleInRange(num start, num end) =>
     Random().nextDouble() * (end - start) + start;

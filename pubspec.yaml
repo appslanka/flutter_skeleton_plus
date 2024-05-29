@@ -1,7 +1,8 @@
 name: flutter_skeleton_plus
 description: "Flutter Skeleton Plus is your go-to package. These placeholders give users visual feedback while your app fetches data"
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/appslanka/flutter_skeleton_plus
+repository: https://github.com/appslanka/flutter_skeleton_plus
 
 environment:
   sdk: ">=3.4.1 <4.0.0"
@@ -17,3 +18,14 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 flutter:
+
+license: BSD-3-Clause
+
+keywords:
+  - skeleton
+  - loading
+  - placeholder
+  - animation
+  - shimmer
+  - UI
+  - UX
